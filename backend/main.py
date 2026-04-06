@@ -23,7 +23,6 @@ app.add_middleware(
 )
 
 # Register routers
-app.include_router(tickets.router, prefix="/api/tickets", tags=["Tickets"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
 app.include_router(tickets.router, prefix="/api/tickets", tags=["Tickets"])
 
