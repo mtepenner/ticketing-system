@@ -3,14 +3,13 @@
 A modern, intelligent ticketing application that transforms messy, unstructured user input into professional engineering tickets. Using the power of Gemini 1.5 Flash, the system handles the heavy lifting of categorization, prioritization, and formatting, allowing teams to focus on building.
 
 ## Table of Contents
-
-  * [Features](https://www.google.com/search?q=%23features)
-  * [Technologies Used](https://www.google.com/search?q=%23technologies-used)
-  * [Installation](https://www.google.com/search?q=%23installation)
-  * [Usage](https://www.google.com/search?q=%23usage)
-  * [Project Structure](https://www.google.com/search?q=%23project-structure)
-  * [License](https://www.google.com/search?q=%23license)
-
+  * [Features](#features)
+  * [Technologies Used](#technologies-used)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Project Structure](#project-structure)
+  * [License](#license)
+  
 ## Features 🌟
 
   * **Magic Input**: Submit bugs or features in plain English; the AI automatically extracts the title, description, type, and priority.
