@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import tickets
 from app.db.database import engine, Base
+from app.api.routes import tickets, users
 
 # Create database tables (In production, use Alembic migrations instead of this)
 Base.metadata.create_all(bind=engine)
@@ -22,6 +23,8 @@ app.add_middleware(
 )
 
 # Register routers
+app.include_router(tickets.router, prefix="/api/tickets", tags=["Tickets"])
+app.include_router(users.router, prefix="/api/users", tags=["Users"])
 app.include_router(tickets.router, prefix="/api/tickets", tags=["Tickets"])
 
 @app.get("/health")
