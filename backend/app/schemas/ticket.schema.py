@@ -24,6 +24,14 @@ class TicketResponse(BaseModel):
     type: TicketType
     priority: TicketPriority
     status: TicketStatus
+
+# Add this below your other schemas in ticket_schema.py
+class TicketUpdateRequest(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    type: Optional[TicketType] = None
+    priority: Optional[TicketPriority] = None
+    status: Optional[TicketStatus] = None
     
     class Config:
         from_attributes = True
