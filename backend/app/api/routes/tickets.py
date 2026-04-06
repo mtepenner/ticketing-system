@@ -59,3 +59,35 @@ def check_duplicates(request: TicketCreateRequest, db: Session = Depends(get_db)
         return similar_tickets
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/{ticket_id}", response_model=TicketResponse)
+def get_ticket(ticket_id: str, db: Session = Depends(get_db)):
+    ticket = db.query(Ticket).filter(Ticket.id == ticket_id).first()
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    return ticket
+
+@router.patch("/{ticket_id}", response_model=TicketResponse)
+def update_ticket(ticket_id: str, ticket_update: TicketUpdateRequest, db: Session = Depends(get_db)):
+    """Used for drag-and-drop status updates or editing details."""
+    db_ticket = db.query(Ticket).filter(Ticket.id == ticket_id).first()
+    if not db_ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    update_data = ticket_update.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_ticket, key, value)
+        
+    db.commit()
+    db.refresh(db_ticket)
+    return db_ticket
+
+@router.delete("/{ticket_id}")
+def delete_ticket(ticket_id: str, db: Session = Depends(get_db)):
+    db_ticket = db.query(Ticket).filter(Ticket.id == ticket_id).first()
+    if not db_ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+        
+    db.delete(db_ticket)
+    db.commit()
+    return {"message": "Ticket deleted successfully"}
