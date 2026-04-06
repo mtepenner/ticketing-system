@@ -32,6 +32,8 @@ class Ticket(Base):
     type = Column(Enum(TicketType), default=TicketType.FEATURE)
     priority = Column(Enum(TicketPriority), default=TicketPriority.MEDIUM)
     status = Column(Enum(TicketStatus), default=TicketStatus.BACKLOG)
+    assignee_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    assignee = relationship("User", back_populates="tickets")
     
     # 768 is the standard dimension size for many embedding models, 
     # adjust if using a different embedding model size.
