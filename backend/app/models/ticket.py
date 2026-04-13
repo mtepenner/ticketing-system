@@ -1,9 +1,10 @@
 import uuid
-from sqlalchemy import Column, String, Text, Enum, Float
+import enum
+from sqlalchemy import Column, String, Text, Enum, Float, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from pgvector.sqlalchemy import Vector
 from app.db.database import Base
-import enum
 
 class TicketType(str, enum.Enum):
     BUG = "Bug"
@@ -32,10 +33,11 @@ class Ticket(Base):
     type = Column(Enum(TicketType), default=TicketType.FEATURE)
     priority = Column(Enum(TicketPriority), default=TicketPriority.MEDIUM)
     status = Column(Enum(TicketStatus), default=TicketStatus.BACKLOG)
+    
+    # Fixed: Added missing ForeignKey import and uses string reference "users.id"
     assignee_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     assignee = relationship("User", back_populates="tickets")
     
-    # 768 is the standard dimension size for many embedding models, 
-    # adjust if using a different embedding model size.
+    # 768 is the standard dimension size for many embedding models
     embedding = Column(Vector(768)) 
     ai_confidence_score = Column(Float, default=1.0)
