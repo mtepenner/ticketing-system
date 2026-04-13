@@ -13,6 +13,5 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
 
-    # Relationship to tickets assigned to this user
-    # We will need to update the Ticket model to recognize this
+    # Fixed: Uses string reference "Ticket" to prevent circular dependency
     tickets = relationship("Ticket", back_populates="assignee")
