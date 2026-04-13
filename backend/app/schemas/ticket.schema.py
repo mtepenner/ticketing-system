@@ -3,11 +3,9 @@ from typing import List, Optional
 from uuid import UUID
 from app.models.ticket import TicketType, TicketPriority, TicketStatus
 
-# Input from the user (the raw text)
 class TicketCreateRequest(BaseModel):
     raw_text: str = Field(..., min_length=10, description="The unstructured request from the user")
 
-# Output from the AI Service
 class ParsedTicketData(BaseModel):
     title: str
     description: str
@@ -16,7 +14,6 @@ class ParsedTicketData(BaseModel):
     suggested_tags: List[str] = []
     confidence_score: float
 
-# Output to the Frontend
 class TicketResponse(BaseModel):
     id: UUID
     title: str
@@ -25,7 +22,9 @@ class TicketResponse(BaseModel):
     priority: TicketPriority
     status: TicketStatus
 
-# Add this below your other schemas in ticket_schema.py
+    class Config:
+        from_attributes = True
+
 class TicketUpdateRequest(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
