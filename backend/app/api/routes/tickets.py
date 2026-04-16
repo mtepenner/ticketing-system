@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
-from app.schemas.ticket_schema import TicketCreateRequest, TicketResponse
+from app.schemas.ticket_schema import TicketCreateRequest, TicketResponse, TicketUpdateRequest
 from app.models.ticket import Ticket
 from app.services.ai_parser import parse_raw_ticket
 from app.services.embeddings import generate_embedding
