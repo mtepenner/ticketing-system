@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app.main import app
+from main import app
 
 # Create a synchronous test client
 client = TestClient(app)
